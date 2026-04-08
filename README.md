@@ -1,89 +1,141 @@
-# Junior Intern Assignment: Full-Stack Blog Application
+# Blog Assignment
 
-## Project Overview
-Build a complete **DevBlog** – a personal blog web application where users can create, publish, and interact with blog posts.
+## Project description
 
-The goal is to demonstrate your ability to build a **full-stack** web application from scratch, including a responsive frontend, a clean REST API backend, and a relational database. The project should be functional, well-structured, and easy to run locally.
+For this assignment, I created a bloging web app called *The Publication* which would allow people to view posts on the site and for authenticated people to create posts or comment on them.
 
-**Important**: This assignment is designed to evaluate **your own coding and problem-solving skills**. You may use AI tools for small helper questions (e.g., syntax), but the architecture, logic, and implementation must be your own work. You will be asked to explain every part of the code during the technical interview.
+## Tech Stack
 
-## Required Tech Stack
-- **Frontend**: Angular **or** Next.js (you choose one)
-- **Backend**: Node.js + Express.js
-- **Database**: PostgreSQL (use raw queries or any lightweight ORM if you prefer – Prisma is **not** required)
-- **Language**: TypeScript (strongly recommended)
-- **Authentication**: JWT
-- **Other allowed libraries**: bcryptjs, cors, dotenv, express-validator (or similar for validation)
+To complet this assignment, I used the following stack:
 
-**You may NOT use** full-stack frameworks like NestJS or Supabase/ Firebase that hide the backend logic.
+1. Express for the backend
+2. Next.js and CSS modules for the frontend
+3. Postgres for my Db and Sequelize as my ORM
 
-## Functional Requirements (Must be fully implemented)
+## Setup Instructions
 
-### 1. User Authentication
-- Register (name, email, password)
-- Login
-- Logout
-- Protected routes for creating/editing posts (only authenticated users)
+### Backend — README
 
-### 2. Blog Posts (CRUD)
-- Create a post: title, content (plain text or markdown), category (dropdown: Tech, Lifestyle, Travel, etc.)
-- View all published posts (public page)
-- View single post with details
-- Edit / Delete **only your own** posts
+This folder contains the Express + Sequelize backend for the React discovery app.
 
-### 3. Comments
-- Authenticated users can add comments on any post
-- View all comments under a post (sorted by newest first)
+#### Quick overview
 
-### 4. Additional Features
-- Search posts by title or content (basic full-text search)
-- Filter posts by category
-- Responsive design (mobile-friendly)
-- Simple pagination (10 posts per page on the list view)
+- Node/Express server (ES module style)
+- Sequelize ORM with MySQL
+- JWT-based authentication
+- Seeders provided for initial data (users + posts + comments)
 
-### 5. Backend API Requirements
-- RESTful routes with proper HTTP status codes and JSON responses
-- Clear separation of concerns (controllers, services, routes)
-- Basic error handling and validation on all endpoints
+#### Required environment variables
 
-## Technical Requirements
-- Use environment variables (`.env.example` must be provided)
-- Secure password hashing with bcrypt
-- Proper CORS configuration
-- At least 3 database tables: `users`, `posts`, `comments` with correct foreign keys and indexes
-- Input validation on all user inputs
-- Clean folder structure (frontend and backend should be in one repo or clearly separated with clear instructions)
+Create a `.env` file at the backend root, follow `.env.example` to setup your `.env` file.
 
-## Submission Instructions
-1. Create a **public GitHub repository** named `devblog-junior-assignment`.
-2. Your repo **must** contain:
-   - Complete source code
-   - `README.md` (see template below)
-   - `.env.example`
-   - SQL script or migration file to create the database schema
-   - Screenshots of the running application (at least 4: login, post list, single post + comments, create post)
-3. **Do not** commit any `.env` file or sensitive data.
-4. Share the GitHub repository link with us.
+**Do not commit your `.env` file**
 
-### README.md Template (must include)
-- Project description
-- Tech stack used
-- How to set up and run locally (step-by-step: database, backend, frontend)
-- Environment variables explanation
-- Any design decisions you made
-- Challenges you faced and how you solved them
+#### Install dependencies
 
-## Evaluation Criteria
-- Completeness of features (50%)
-- Code quality, organization, and readability (20%)
-- Database design and API design (15%)
-- UI/UX and responsiveness (10%)
-- README quality and setup instructions (5%)
+From the `backend` directory:
 
-**Estimated time**: 8–12 hours (spread over 3–5 days).
+```bash
+npm install
+```
 
-We will clone your repo, run it locally, and review the code. Be ready for a live coding/discussion round.
+#### Migrations & Seeders
+
+This project includes seeders under `backend/seeders`. If you use `sequelize-cli` you can run seeders like:
+
+```bash
+# Migrate to DB
+npx sequelize db:migrate
+
+# Seed DB
+npx sequelize db:seed:all
+```
+
+(Adjust the command to match your sequelize-cli configuration if necessary.)
+
+If you don't use `sequelize-cli` directly, you can also run the seed scripts programmatically or via a small node script.
+
+#### Start the server (development)
+
+You can run the server using these commands:
+
+```bash
+# from backend/
+node app.js
+
+# or 
+npx nodemon app.js
+```
+
+The server prints the URL it is running on (e.g. <http://127.0.0.1:5000>).
+
+### Frontend - README
+
+This folder contains the Next.js frontend.
+
+#### Environment variables
+
+Create a `.env` file at the backend root, follow `.env.example` to setup your `.env` file.
+
+**Do not commit your `.env` file**
+
+#### Installing dependencies
+
+From the `frontend` directory:
+
+```bash
+npm install
+```
+
+#### Start the server
+
+Use the following command to start the server
+
+```bash
+# from frontend/
+node app.js
+```
+
+The server prints the URL it is running on (e.g. <http://127.0.0.1:3000>)
+
+## Environment variables explanation
+
+### Backend Variables
+
+```markdown
+# Database configuration
+DB_USER: The username for your DB configurations
+DB_HOST=The host for your DB
+DB_DATABASE=The name of the DB
+DB_PASSWORD=The password of the DB user
+DB_PORT=The posrt to reach your DB
+
+# Server configuration
+PORT=The port the backend will connect through
+HOST=The host the bcakend can be reached through
+FRONTEND_URL=The frontend url for cors permissions
+
+# JWT configuration
+JWT_SECRET=The secret key to encode the JWT tokens
+JWT_EXPIRES_IN=The life time the tokens
+
+# Seed Data
+SEED_PASSWORD=The password to the seeded users
+```
+
+### Frontend Variables
+
+```markdown
+API_URL=The backend URL to your endpoints
+AUTH_API_URL=The backend URL specific to your auth endpoints
+```
+
+## Design Decisions
+
+The design of the system was restricted to the functional requirements only since the fullness of the system was not an evaluation criterion.
+
+## Challenges faced and how they were solved
+
+The major challenge I faced was my unfamiliarity with either of the suggested frontend frameworks, Angular and NextJS. However, since I was already familiar with React, NextJS was the better choice. I adapted to the chalenge by using tutorials and looking up syntax to fill in the gaps of knowledge.
 
 ---
-
-**Good luck!** We are excited to see what you build. If you have any questions about the requirements, ask before starting.
